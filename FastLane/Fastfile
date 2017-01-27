@@ -44,10 +44,10 @@ end
 
   lane :deploy do
 # Make sure we start off with a clean slate
-ensure_git_status_clean
 ensure_git_branch(branch: "master")
-update_translations
+#ensure_git_status_clean
 cocoapods
+changelog_from_git_commits
 
 # Increment build number to current date
 version_number = "1.0"
