@@ -1,0 +1,17 @@
+PODS:
+  - AdobeMobileSDK (4.11.0):
+    - AdobeMobileSDK/iOS (= 4.11.0)
+  - AdobeMobileSDK/iOS (4.11.0)
+  - HockeySDK (3.6.4)
+
+DEPENDENCIES:
+  - AdobeMobileSDK (= 4.11.0)
+  - HockeySDK (= 3.6.4)
+
+SPEC CHECKSUMS:
+  AdobeMobileSDK: 89eb12b23d68359733af8181087a89b443083329
+  HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
+
+PODFILE CHECKSUM: cf077aa0ff9b77eff7f35f23556eb9e6c18fe3f6
+
+COCOAPODS: 1.1.1
