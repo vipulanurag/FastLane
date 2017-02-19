@@ -45,7 +45,7 @@ end
   lane :deploy do
 # Make sure we start off with a clean slate
 ensure_git_branch(branch: "master")
-#ensure_git_status_clean
+ensure_git_status_clean
 #cocoapods
 changelog_from_git_commits
 
@@ -66,8 +66,6 @@ gym(
 scheme: "FastLane",
 export_team_id: "KZD857H7R9",
 export_method: "development",
-#export_options: "exportPlist.plist",
-#codesigning_identity: "iPhone Distribution: Connecticut General Life Ins. Co.",
 clean: true,
 )
 
