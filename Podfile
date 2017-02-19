@@ -8,7 +8,7 @@ target 'FastLane' do
   # Pods for FastLane
 
   target 'FastLaneTests' do
-    pod 'HockeySDK' , '3.6.4'
+#pod 'HockeySDK' , '3.6.4'
     pod 'AdobeMobileSDK', '4.11.0'
     inherit! :search_paths
     # Pods for testing
