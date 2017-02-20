@@ -15,6 +15,7 @@
 		383D16031E3A61FD00A889AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 383D16011E3A61FD00A889AB /* LaunchScreen.storyboard */; };
 		383D160E1E3A61FD00A889AB /* FastLaneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383D160D1E3A61FD00A889AB /* FastLaneTests.swift */; };
 		383D16191E3A61FD00A889AB /* FastLaneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383D16181E3A61FD00A889AB /* FastLaneUITests.swift */; };
+		38CEC2011E5ABC5100DC51F3 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CEC2001E5ABC5100DC51F3 /* SnapshotHelper.swift */; };
 		463F138CEDD07F5FBAA5487C /* Pods_FastLaneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C50F0BFC2146A971CC6842B /* Pods_FastLaneUITests.framework */; };
 		647E7EAB71BE0751E1EB46B4 /* Pods_FastLaneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE186215BB514D388173D29 /* Pods_FastLaneTests.framework */; };
 		ACA6F0D299A411053B347283 /* Pods_FastLane.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C00BE3C810B088A7FE25ABE /* Pods_FastLane.framework */; };
@@ -54,6 +55,7 @@
 		383D16141E3A61FD00A889AB /* FastLaneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FastLaneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		383D16181E3A61FD00A889AB /* FastLaneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastLaneUITests.swift; sourceTree = "<group>"; };
 		383D161A1E3A61FD00A889AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38CEC2001E5ABC5100DC51F3 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		86434D12D2F1C8193B359835 /* Pods-FastLaneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastLaneUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FastLaneUITests/Pods-FastLaneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8C65F71D2E004BDB834476A7 /* Pods-FastLane.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastLane.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FastLane/Pods-FastLane.debug.xcconfig"; sourceTree = "<group>"; };
 		8EE09E3E9162E60B1797E9D0 /* Pods-FastLane.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastLane.release.xcconfig"; path = "Pods/Target Support Files/Pods-FastLane/Pods-FastLane.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		383D16171E3A61FD00A889AB /* FastLaneUITests */ = {
 			isa = PBXGroup;
 			children = (
+				38CEC2001E5ABC5100DC51F3 /* SnapshotHelper.swift */,
 				383D16181E3A61FD00A889AB /* FastLaneUITests.swift */,
 				383D161A1E3A61FD00A889AB /* Info.plist */,
 			);
@@ -471,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				383D16191E3A61FD00A889AB /* FastLaneUITests.swift in Sources */,
+				38CEC2011E5ABC5100DC51F3 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
