@@ -28,6 +28,15 @@ class FastLaneUITests: XCTestCase {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
          snapshot("0Launch")
+        /*
+         
+         app.staticTexts["theTextLabel"]
+         app.buttons["The button text"]
+         app.tabs
+         app.tables
+         
+         app.switches
+ */
     }
     
 }
