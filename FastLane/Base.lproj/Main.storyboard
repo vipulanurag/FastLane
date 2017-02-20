@@ -21,8 +21,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to FastLane Demo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TdW-u4-D6r">
-                                <rect key="frame" x="80" y="302" width="253" height="132"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to FastLane Demo" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TdW-u4-D6r">
+                                <rect key="frame" x="81" y="51" width="253" height="21.666666666666671"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -30,10 +30,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.25215880010322639" green="0.70969881026886183" blue="0.94060527149999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="TdW-u4-D6r" secondAttribute="bottom" constant="302" id="Foc-Xf-QWB"/>
-                            <constraint firstItem="TdW-u4-D6r" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="282" id="TwQ-g8-xHg"/>
-                            <constraint firstItem="TdW-u4-D6r" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="80" id="aJx-vp-0UK"/>
-                            <constraint firstAttribute="trailing" secondItem="TdW-u4-D6r" secondAttribute="trailing" constant="81" id="qRX-sC-EdV"/>
+                            <constraint firstItem="TdW-u4-D6r" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="31" id="TwQ-g8-xHg"/>
+                            <constraint firstItem="TdW-u4-D6r" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="81" id="aJx-vp-0UK"/>
+                            <constraint firstAttribute="trailing" secondItem="TdW-u4-D6r" secondAttribute="trailing" constant="80" id="qRX-sC-EdV"/>
                         </constraints>
                     </view>
                 </viewController>
