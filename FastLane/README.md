@@ -28,16 +28,16 @@ xcode-select --install
 </tr>
 </table>
 # Available Actions
-### hockey
+### deployDev
 ```
-fastlane hockey
+fastlane deployDev
 ```
 Deploy FastLane to HockeyApp
 ### store
 ```
 fastlane store
 ```
-Upload FastLane to the App Store
+Upload myCigna to the App Store
 ### test
 ```
 fastlane test

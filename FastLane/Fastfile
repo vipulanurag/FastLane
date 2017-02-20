@@ -1,113 +1,3 @@
-# Customise this file, documentation can be found here:
-# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
-# All available actions: https://docs.fastlane.tools/actions
-# can also be listed using the `fastlane actions` command
-
-# Change the syntax highlighting to Ruby
-# All lines starting with a # are ignored when running `fastlane`
-
-# If you want to automatically update fastlane if a new version is available:
-# update_fastlane
-
-# This is the minimum version number required.
-# Update this, if you use features of a newer version
-fastlane_version "2.11.0"
-
-default_platform :ios
-
-platform :ios do
-  before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    
-    
-  end
-
-  desc "Runs all the tests"
-  lane :test do
-    scan
-  end
-
-  desc "Submit a new Beta Build to Apple TestFlight"
-  desc "This will also make sure the profile is up to date"
-  lane :beta do
-    # match(type: "appstore") # more information: https://codesigning.guide
-    gym # Build your app - more options available
-    pilot
-
-    # sh "your_script.sh"
-    # You can also use other beta testing services here (run `fastlane actions`)
-  end
-
-before_all do
-cocoapods
-end
-
-  lane :QA do
-# Make sure we start off with a clean slate
-ensure_git_branch(branch: "master")
-ensure_git_status_clean
-#cocoapods
-changelog_from_git_commits
-
-# Increment build number to current date
-version_number = "1.0"
-latest_version = "1.0"
-build_number = Time.new.strftime("%Y.%m.%d")
-increment_build_number build_number: build_number
-
-xcode_select "/Applications/Xcode.app"
-
-
-# Generate release notes from CHANGELOG
-release_notes = latest_version.split("\n")[1..-1].join("\n")
-
-
-gym(
-scheme: "FastLane",
-export_team_id: "KZD857H7R9",
-export_method: "development",
-clean: true,
-)
-
-# Push to Hockey
-markdown_type = "1"
-hockey(
-api_token: "d7faf35b55b348dcaa19cff72a109de4",
-notes_type: markdown_type,
-notes: release_notes,
-notify: false,
-)
-
-    end
-
-  desc "Deploy a new version to the App Store"
-  lane :release do
-    # match(type: "appstore")
-    # snapshot
-    gym # Build your app - more options available
-    deliver(force: true)
-    # frameit
-  end
-
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
-  end
-
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
-  end
-end
-
-
 ################################## GLOBAL SETUP #####################################
 
 opt_out_usage
@@ -163,8 +53,8 @@ export_method: "development",
 include_symbols: true,
 include_bitcode: false
 )
-hockey_upload(api_token:api_token)
 snapshot
+hockey_upload(api_token:api_token)
 cleanup
 end
 
