@@ -42,7 +42,7 @@ before_all do
 cocoapods
 end
 
-  lane :deploy do
+  lane :QA do
 # Make sure we start off with a clean slate
 ensure_git_branch(branch: "master")
 ensure_git_status_clean
@@ -108,8 +108,202 @@ notify: false,
 end
 
 
-# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
-# All available actions: https://docs.fastlane.tools/actions
+################################## GLOBAL SETUP #####################################
 
-# fastlane reports which actions are used
-# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
+opt_out_usage
+#default_platform :ios
+fastlane_version "2.13.0"
+
+################################ PUBLIC LANES #######################################
+
+#------------------------------- Hockey Lanes --------------------------------------#
+
+desc "Deploy FastLane to HockeyApp"
+lane :deployDev do
+deploy(
+scheme: "FastLane",
+build_number_date_modifier: false,
+api_token: "d7faf35b55b348dcaa19cff72a109de4",
+default_environment: "Development"
+)
+end
+
+#------------------------------ App Store Lanes ------------------------------------#
+
+desc "Upload myCigna to the App Store"
+lane :store do
+submit(
+scheme: "FastLane",
+app_identifier: "com.cigna.mobile.FastLane",
+build_number_date_modifier: false,
+default_environment: "Production"
+)
+end
+
+################################# PRIVATE LANES #####################################
+
+#--------------------------- Deploy to Hockey Steps --------------------------------#
+
+desc "Deploy on Hockey"
+private_lane :deploy do |options|
+scheme = options[:scheme]
+build_number_date_modifier = options[:build_number_date_modifier]
+api_token = options[:api_token]
+default_environment = options[:default_environment]
+
+configure(
+app_identifier: "com.cigna.mobile.FastLane",
+build_number_date_modifier: build_number_date_modifier,
+default_environment: default_environment
+)
+build(
+scheme:scheme,
+export_team_id: "KZD857H7R9",
+export_method: "development",
+include_symbols: true,
+include_bitcode: false
+)
+hockey_upload(api_token:api_token)
+snapshot
+cleanup
+end
+
+#------------------------------ Submit to Store ------------------------------------#
+
+desc "Submit"
+private_lane :submit do |options|
+scheme = options[:scheme]
+app_identifier = options[:app_identifier]
+build_number_date_modifier = options[:build_number_date_modifier]
+api_token = options[:api_token]
+default_environment = options[:default_environment]
+
+configure(
+app_identifier:app_identifier,
+build_number_date_modifier:build_number_date_modifier,
+default_environment: default_environment
+)
+build(
+scheme:scheme,
+export_method: "app-store",
+export_team_id: "A65ZWQ5C4F",
+include_symbols: true,
+include_bitcode: false
+)
+store_upload
+cleanup
+end
+
+#------------------------------ App Configuration -----------------------------------#
+
+desc "Configure app for deployment"
+private_lane :configure do |options|
+app_identifier = options[:app_identifier]
+build_number_date_modifier = options[:build_number_date_modifier]
+default_environment = options[:default_environment]
+
+# Setup Jenkins for use with fastlane -- Does nothing when deployed from non-CI machine
+setup_jenkins
+
+# Assure we are working with clean git and proper Xcode Version
+#ensure_git_status_clean
+ensure_xcode_version(version: "8.2")
+
+# Clear derived data and cache to ensure a clean slate
+clear_derived_data
+clean_cocoapods_cache
+
+# Strip unneeded architectures for deployment (shell script)
+#sh "scripts/strip_frameworks.sh"
+
+# Update bundle identifier to ensure we are using the correct bundle for build
+update_app_identifier(
+xcodeproj: "FastLane.xcodeproj",
+plist_path: "FastLane/Info.plist",
+app_identifier: app_identifier,
+)
+
+# Update Environments.plist with default Environment Value
+#set_info_plist_value(
+#path: "./OneGuide/Resources/Settings/Environments.plist",
+#key: "Environment",
+#value: default_environment
+#)
+
+# Pod installation
+cocoapods(
+clean: true,
+integrate: true,
+)
+
+# Set version number to the one at the top of the CHANGELOG
+#readme = File.read("../docs/CHANGELOG.md")
+#latest_version = readme.split("\n## ").first
+#first_line = latest_version.split("\n").first
+#version_number = first_line.split(" ")[1]
+#increment_version_number(version_number: version_number)
+
+# Set build number to number of commits + 31000 (31000 added for legacy compatibility purposes).
+# Add date modifier to myCignaDev (feature) builds as the commit numbers can collide otherwise.
+if build_number_date_modifier
+build_number = "#{31000 + number_of_commits}.#{Time.new.strftime("%Y%m%d%H%M")}"
+else
+build_number = "#{31000 + number_of_commits}"
+end
+increment_build_number(build_number: build_number)
+
+# Generate release notes from CHANGELOG
+#$release_notes = latest_version.split("\n")[1..-1].join("\n")
+end
+
+#------------------------------ Build xcarchive/ipa/dSYM  ---------------------------#
+
+desc "Build App for use"
+private_lane :build do |options|
+scheme = options[:scheme]
+export_method = options[:export_method]
+export_team_id = options[:export_team_id]
+include_symbols = options[:include_symbols]
+include_bitcode = options[:include_bitcode]
+
+# Build myCignaQA as xcarchive and extract ipa and dSYM.zip file
+gym(
+scheme: scheme,
+export_method: export_method,
+export_team_id: export_team_id,
+include_symbols: include_symbols,
+include_bitcode: include_bitcode,
+clean: true,
+)
+end
+
+#------------------------------------ Deploy ----------------------------------------#
+
+desc "Upload App to Hockey"
+private_lane :hockey_upload do |options|
+api_token = options[:api_token]
+
+# Push to HockeyApp
+markdown_type = "0"
+hockey(
+api_token: api_token,
+notes_type: markdown_type,
+notes: $release_notes,
+notify: false,
+)
+end
+
+#------------------------------------ Cleanup ---------------------------------------#
+
+desc "Cleanup Final Steps"
+private_lane :cleanup do
+sh "git checkout -f"
+end
+
+#------------------------------------ Testing ---------------------------------------#
+
+desc "Test"
+lane :test do
+
+
+end

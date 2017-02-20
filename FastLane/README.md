@@ -28,6 +28,24 @@ xcode-select --install
 </tr>
 </table>
 # Available Actions
+### hockey
+```
+fastlane hockey
+```
+Deploy FastLane to HockeyApp
+### store
+```
+fastlane store
+```
+Upload FastLane to the App Store
+### test
+```
+fastlane test
+```
+Test
+
+----
+
 ## iOS
 ### ios test
 ```
@@ -41,9 +59,9 @@ fastlane ios beta
 Submit a new Beta Build to Apple TestFlight
 
 This will also make sure the profile is up to date
-### ios deploy
+### ios QA
 ```
-fastlane ios deploy
+fastlane ios QA
 ```
 
 ### ios release
